@@ -1,0 +1,82 @@
+This modifies Anki's duplicate checking in the editor so that multiple fields are used in the check instead of just the first one.
+
+<b>How to use it:</b> Simply append <code>_pk</code> to any fields besides the first one that you want to be included in the duplicate check.
+
+<img src="https://raw.githubusercontent.com/matthayes/anki_flex_dupes/master/images/la_mano_es_dup.png" width="70%">
+
+<b>Why?</b>
+
+Anki's editor notifies you when one or more existing notes share the same value for the first field.  When a duplicate is detected, it highlights the first field in red and provides a link that takes you to a search that returns the duplicate notes.
+
+Usually, this works great.  But, sometimes you want to use the same note type in multiple decks and this system can lead to false positives.  For example, suppose you are learning Spanish and Italian and you have a single note type that they share.  If you have any vocabulary that are expressed the same way in both languages, they will be flagged as duplicates.
+
+<img src="https://raw.githubusercontent.com/matthayes/anki_flex_dupes/master/images/la_mano.png" width="70%">
+
+Anki doesn't prevent you from creating the note.  But still, it can be annoying to see the field highlighted when it technically shouldn't be a duplicate.  It also means you can miss true duplicates.
+
+One solution is to clone the note type and have a note type per language.  The problem here is that it makes it more difficult to maintain these templates.  If you like consistency, then if you change one template you need to change all the others.
+
+Wouldn't it be great if you could consider the <code>Lang</code> field in duplicate detection?
+
+<b>How It Works</b>
+
+Append <code>_pk</code> to the name of any fields besides the first field that you want to be considered in duplicate detection.  For a note to be a duplicate, the first field and all other fields ending in <code>_pk</code> must match.  For example, below the primary key for detecting duplicates is <code>(Expression, Lang_pk)</code>.  While the <code>Expression</code> matches, <code>Lang_pk</code> does not.
+
+<img src="https://raw.githubusercontent.com/matthayes/anki_flex_dupes/master/images/la_mano2.png" width="70%">
+
+When using this plugin, Anki will perform the same checks it is already doing on the first field.  But it filters the duplicates flagged by this check based on whether the additional <code>_pk</code> fields match.  All of these fields must match for the note to be a duplicate.
+
+When there is a duplicate, the fields used as the primary key will be highlighted red.
+
+<img src="https://raw.githubusercontent.com/matthayes/anki_flex_dupes/master/images/la_mano_es_dup.png" width="70%">
+
+The <code>Show Duplicates</code> link has been updated to search for the additional fields as well.  So clicking on the link in the example above would produce a search like the following.
+
+<code>"dupe:1576694022466,la mano" Lang_pk:"es"</code>
+
+<b>What It Does Not Do</b>
+
+<b>Does Not Modify Importing</b>
+
+This does not modify how importing works, which uses a different duplicate detection method.  When importing a CSV for example, you have the option of having Anki ignore a note being imported that has the same first field (in the CSV) as another note.  This is not necessarily the same as the first field of the note type, which is used for duplicate detection in the editor.
+
+Modifying this import code would not really make sense, because the duplicate detection is so different.  So you could still run into problems when importing notes from multiple languages, for example, into the same note type.  The good news is you don't need a plugin to solve this problem.  You can make a unique key by stitching together other keys and make this the first field in the CSV.  For example, taking my earlier example for <code>la mano</code> in language <code>es</code>, you could make a key <code>la mano [es]</code> as the first field in the CSV and assign this to an <code>ImportKey</code> field in the note.  The <code>ImportKey</code> field would only be used during the import process.
+
+<b>Does Not Modify Anki Mobile</b>
+
+This plugin is for Anki Desktop, so it will not impact the editor in Anki Mobile.  There should be no issue with using these notes in Anki Mobile.  It's just that when you try to edit them some could be flagged as duplicates because Anki Mobile will only consider the first field for detection.
+
+<b>Alternatives Considered</b>
+
+You might be wondering why the duplicate detection does not consider the deck that the note/cards are in and only flag duplicates that are in the same deck.  There are two problems with this:
+
+<ol>
+<li>Notes are not tied to decks; cards are.  Duplicate detection happens on notes.  The cards associated with a note can be in separate decks.  It's not really clear what the right logic would be.</li>
+<li>It's not clear at what granularity duplicate detection within decks should happen given that you can have subdecks.  What if you have a <code>Spanish</code> deck where <code>la mano</code> appears in subdecks <code>Spanish::Vocab</code> and <code>Spanish::General</code>?  It's not clear under what conditions it should be flagged.</li>
+
+<b>Support</b>
+
+If you experience a problem or have any comments/ideas, please open an issue at the <a href="https://github.com/matthayes/anki_flex_dupe_checking/issues">Issues page</a> for the project on Github.
+
+<b>Version History</b>
+
+<ul>
+<li>0.1: Initial Release</li>
+</ul>
+
+<b>License</b>
+
+Copyright 2019 Matthew Hayes
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU Affero General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Affero General Public License for more details.
+
+You should have received a copy of the GNU Affero General Public License
+along with this program.  If not, see <a href="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</a>.
