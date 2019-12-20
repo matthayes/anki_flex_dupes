@@ -1,6 +1,6 @@
 # Anki Flexible Duplicate Checking
 
-This modifies Anki's duplicate checking in the editor so that multiple fields are used in the check instead of just the first one.
+This modifies Anki's duplicate checking in the editor so that multiple fields are used in the check instead of just the first one.  You can find the plugin [here](https://ankiweb.net/shared/info/1587955871).
 
 **How to use it:** Simply append `_pk` to any fields besides the first one that you want to be included in the duplicate check.
 
