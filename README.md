@@ -4,7 +4,7 @@ This modifies Anki's duplicate checking in the editor so that multiple fields ar
 
 **How to use it:** Simply append `_pk` to any fields besides the first one that you want to be included in the duplicate check.
 
-<img src="https://raw.githubusercontent.com/matthayes/anki_flex_dupes/master/images/la_mano_es_dup.png" width="70%">
+<img src="https://raw.githubusercontent.com/matthayes/anki_flex_dupes/master/images/la_mano_es_dup.png" width="40%">
 
 ## Why?
 
@@ -24,13 +24,13 @@ Wouldn't it be great if you could consider the `Lang` field in duplicate detecti
 
 Append `_pk` to the name of any fields besides the first field that you want to be considered in duplicate detection.  For a note to be a duplicate, the first field and all other fields ending in `_pk` must match.  For example, below the primary key for detecting duplicates is `(Expression, Lang_pk)`.  While the `Expression` matches, `Lang_pk` does not.
 
-<img src="https://raw.githubusercontent.com/matthayes/anki_flex_dupes/master/images/la_mano2.png" width="70%">
+<img src="https://raw.githubusercontent.com/matthayes/anki_flex_dupes/master/images/la_mano2.png" width="50%">
 
 When using this plugin, Anki will perform the same checks it is already doing on the first field.  But it filters the duplicates flagged by this check based on whether the additional `_pk` fields match.  All of these fields must match for the note to be a duplicate.
 
 When there is a duplicate, the fields used as the primary key will be highlighted red.
 
-<img src="https://raw.githubusercontent.com/matthayes/anki_flex_dupes/master/images/la_mano_es_dup.png" width="70%">
+<img src="https://raw.githubusercontent.com/matthayes/anki_flex_dupes/master/images/la_mano_es_dup.png" width="35%">
 
 The `Show Duplicates` link has been updated to search for the additional fields as well.  So clicking on the link in the example above would produce a search like the following.
 
