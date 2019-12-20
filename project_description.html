@@ -1,4 +1,4 @@
-This modifies Anki's duplicate checking in the editor so that multiple fields are used in the check instead of just the first one.
+This modifies Anki's duplicate checking in the editor so that multiple fields are used in the check instead of just the first one.  You can find the plugin <a href="https://ankiweb.net/shared/info/1587955871">here</a>.
 
 <b>How to use it:</b> Simply append <code>_pk</code> to any fields besides the first one that you want to be included in the duplicate check.
 
@@ -53,10 +53,11 @@ You might be wondering why the duplicate detection does not consider the deck th
 <ol>
 <li>Notes are not tied to decks; cards are.  Duplicate detection happens on notes.  The cards associated with a note can be in separate decks.  It's not really clear what the right logic would be.</li>
 <li>It's not clear at what granularity duplicate detection within decks should happen given that you can have subdecks.  What if you have a <code>Spanish</code> deck where <code>la mano</code> appears in subdecks <code>Spanish::Vocab</code> and <code>Spanish::General</code>?  It's not clear under what conditions it should be flagged.</li>
+</ol>
 
 <b>Support</b>
 
-If you experience a problem or have any comments/ideas, please open an issue at the <a href="https://github.com/matthayes/anki_flex_dupe_checking/issues">Issues page</a> for the project on Github.
+If you experience a problem or have any comments/ideas, please open an issue at the <a href="https://github.com/matthayes/anki_flex_dupes/issues">Issues page</a> for the project on Github.
 
 <b>Version History</b>
 
