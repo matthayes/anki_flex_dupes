@@ -59,7 +59,7 @@ You might be wondering why the duplicate detection does not consider the deck th
 
 ## License
 
-Copyright 2019 Matthew Hayes
+Copyright 2019-2020 Matthew Hayes
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU Affero General Public License as published by

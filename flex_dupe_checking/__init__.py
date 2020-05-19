@@ -1,5 +1,5 @@
 # Anki Flexible Dupe Checing
-# Copyright (C) 2019 Matthew Hayes
+# Copyright (C) 2019-2020 Matthew Hayes
 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
