@@ -17,6 +17,7 @@
 import json
 
 import aqt
+from anki import version as anki_version
 from anki.hooks import wrap
 from anki.notes import Note
 from anki.utils import fieldChecksum, stripHTMLMedia, splitFields
@@ -25,6 +26,14 @@ from aqt.editor import Editor
 # When this is appended to the names of fields, then those fields are considered along with the
 # first field when checking for duplicates in the editor.
 KEY_SUFFIX = "_pk"
+
+anki_patch_version = int(anki_version.split(".")[-1])
+
+# Starting with version 20, Anki uses a class to mark the duplicate field.
+if anki_patch_version < 20:
+    use_color_code = True
+else:
+    use_color_code = False
 
 
 def dupeOrEmptyWithOrds(self):
@@ -73,11 +82,17 @@ def checkValid(self, _old):
     cols = []
     err = None
     for f in self.note.fields:
-        cols.append("#fff")
+        if use_color_code:
+            cols.append("#fff")
+        else:
+            cols.append("")
     err, field_ords = dupeOrEmptyWithOrds(self.note)
     if err == 2:
         for i in field_ords:
-            cols[i] = "#fcc"
+            if use_color_code:
+                cols[i] = "#fcc"
+            else:
+                cols[i] = "dupe"
         self.web.eval("showDupes();")
     else:
         self.web.eval("hideDupes();")
